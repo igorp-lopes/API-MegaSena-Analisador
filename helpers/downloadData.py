@@ -24,5 +24,3 @@ def obtainData():
     else:
 
         return response
-        # with open(databasePath, 'wb') as file:
-        #     file.write(response.content)

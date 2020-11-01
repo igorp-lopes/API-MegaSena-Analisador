@@ -3,7 +3,6 @@ from helpers import downloadData
 import pandas as pd
 
 
-
 def extractData():
 
     # We obtain the html with the data
@@ -26,5 +25,10 @@ def extractData():
     # We remove the empty rows and reset the index
     dataframe = dataframe.dropna()
     dataframe = dataframe.reset_index(drop=True)
+
+    # We properly assign the value type of each column
+    conditionMask = dataframe.columns != 'Data do Sorteio'
+    dataframe.loc[:, conditionMask] = dataframe.loc[:,
+                                                    conditionMask].astype("int64")
 
     return dataframe
