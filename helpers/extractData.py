@@ -3,46 +3,28 @@ from helpers import downloadData
 import pandas as pd
 
 
+
 def extractData():
-
-    def saveToDataframe(datalist, row):
-        row = row.find_all('td')
-
-        # List where we'll save the data to append to the dataframe
-        rowData = []
-
-        for index, data in enumerate(row):
-            # If we are past the index of the last data we want to collect
-            if index >= 8:
-                break
-
-            rowData.append(data.text)
-
-        # We append the data from the row to the list of all the rows data
-        datalist.append(rowData)
-        return datalist
 
     # We obtain the html with the data
     responseHtml = downloadData.obtainData()
 
     # We parse the html to an BeautifulSoup object
-    soup = BeautifulSoup(responseHtml.content, 'html.parser')
+    soup = BeautifulSoup(responseHtml.content, "html5lib")
 
-    # We select the table data from the html
-    tables = soup.find_all('tbody')
-    tables = tables[0]
-    table_rows = tables.find_all('tr')
+    # We select the table in the html
+    soupTable = soup.find('table')
 
-    # For each row of data we extract the wanted information and save it on a list of lists
-    listOfData = []
-    for row in table_rows:
+    # We transform the html table into a Pandas dataframe
+    dataframe = pd.read_html(str(soupTable))
+    dataframe = dataframe[0]
 
-        listOfData = saveToDataframe(listOfData, row)
+    # We remove the unwanted columns from the dataframe
+    dataframe = dataframe.iloc[:, :9]
+    dataframe = dataframe.drop(columns=['Local'])
 
-    dataframeColumns = ["Concurso", "Local", "Data do Sorteio", "Coluna 1",
-                        "Coluna 2", "Coluna 3", "Coluna 4", "Coluna 5", "Coluna 6"]
-    print("Fim")
-
-    dataframe = pd.DataFrame(listOfData, columns=dataframeColumns)
+    # We remove the empty rows and reset the index
+    dataframe = dataframe.dropna()
+    dataframe = dataframe.reset_index(drop=True)
 
     return dataframe
