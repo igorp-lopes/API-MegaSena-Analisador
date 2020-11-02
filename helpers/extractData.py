@@ -26,6 +26,10 @@ def extractData():
     dataframe = dataframe.iloc[:, :9]
     dataframe = dataframe.drop(columns=['Local'])
 
+    # We rename the columns for better understanding of the dataframe
+    dataframe.rename(columns=lambda name: name.replace(
+        'Coluna', 'Dezena'), inplace=True)
+
     # We remove the empty rows and reset the index
     dataframe = dataframe.dropna()
     dataframe = dataframe.reset_index(drop=True)
