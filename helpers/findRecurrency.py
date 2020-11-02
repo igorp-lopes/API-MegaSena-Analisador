@@ -10,4 +10,21 @@ def findRecurrency(dataframe):
     # We select only the drawn numbers from the dataframe
     dfNumbers = dataframe.iloc[:, 2:]
 
-    return dfNumbers
+    columns = list(dfNumbers)
+    groupedSeries = pd.Series([])
+    for i in columns:
+
+        if groupedSeries.empty:
+            groupedSeries = dfNumbers[i]
+        else:
+            groupedSeries = pd.concat(
+                [groupedSeries, dfNumbers[i]], ignore_index=True)
+
+    recurrencySeries = (groupedSeries.value_counts()).sort_index()
+    numbersSeries = (recurrencySeries.index).to_series()
+
+    recurrencyDataframe = pd.DataFrame([])
+    recurrencyDataframe["Números"] = numbersSeries
+    recurrencyDataframe["Ocorrencias"] = recurrencySeries
+
+    return recurrencyDataframe
