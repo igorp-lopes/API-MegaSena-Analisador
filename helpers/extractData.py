@@ -4,6 +4,10 @@ import pandas as pd
 
 
 def extractData():
+    """
+    Function used to get the html page where the date is stored and convert
+    the wanted info into a Pandas dataframe
+    """
 
     # We obtain the html with the data
     responseHtml = downloadData.obtainData()
