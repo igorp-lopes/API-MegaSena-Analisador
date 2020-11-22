@@ -72,3 +72,14 @@ def findNewest(dataframe):
     datesDataframe = __convertContestToDate(dataframe, contestOrderedSeries)
 
     return datesDataframe
+
+
+def findOldest(dataframe):
+
+    # We group the selected numbers by their highest contest number
+    contestOrderedSeries = __groupByContestNumber(dataframe, highest=False)
+
+    # We convert the contest number into the actual date
+    datesDataframe = __convertContestToDate(dataframe, contestOrderedSeries)
+
+    return datesDataframe
