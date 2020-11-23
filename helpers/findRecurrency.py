@@ -24,7 +24,7 @@ def findRecurrency(dataframe):
     numbersSeries = (recurrencySeries.index).to_series()
 
     recurrencyDataframe = pd.DataFrame([])
-    recurrencyDataframe["Números"] = numbersSeries
+    recurrencyDataframe["Numeros"] = numbersSeries
     recurrencyDataframe["Ocorrencias"] = recurrencySeries
 
     return recurrencyDataframe
