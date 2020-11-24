@@ -50,3 +50,23 @@ async def getNewestDate(startDate: Optional[str] = None):
     json = saveToJson(earliestDateDf)
 
     return json
+
+
+@app.get("/oldestDate")
+async def getOldestDate(startDate: Optional[str] = None):
+    '''
+    Route to get the oldest date in which each number has been selected in
+    all the contests or in a subset of contests starting from a given date up to the
+    latest contest
+    '''
+
+   # If an starting date is given, select the subset of the dataframe
+    if startDate:
+        tempDf = selectDateInterval(baseDf, startDate)
+    else:
+        tempDf = baseDf
+
+    oldestDateDf = findOldest(tempDf)
+    json = saveToJson(oldestDateDf)
+
+    return json
