@@ -11,7 +11,8 @@ from helpers.findDates import findNewest, findOldest
 
 app = FastAPI()
 
-baseDf = readFromCsv('resources/DadosMegasena.csv')
+baseDf = extractData()
+# baseDf = readFromCsv('resources/DadosMegasena.csv')
 
 
 @app.get("/results")
