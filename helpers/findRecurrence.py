@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def findRecurrency(dataframe):
+def findRecurrence(dataframe):
     """
     Function used to find how many times each number has been selected as
     a winning number in a given dataframe with the results
@@ -20,11 +20,11 @@ def findRecurrency(dataframe):
             groupedSeries = pd.concat(
                 [groupedSeries, dfNumbers[i]], ignore_index=True)
 
-    recurrencySeries = (groupedSeries.value_counts()).sort_index()
-    numbersSeries = (recurrencySeries.index).to_series()
+    recurrenceSeries = (groupedSeries.value_counts()).sort_index()
+    numbersSeries = (recurrenceSeries.index).to_series()
 
-    recurrencyDataframe = pd.DataFrame([])
-    recurrencyDataframe["Numeros"] = numbersSeries
-    recurrencyDataframe["Ocorrencias"] = recurrencySeries
+    recurrenceDataframe = pd.DataFrame([])
+    recurrenceDataframe["Numeros"] = numbersSeries
+    recurrenceDataframe["Ocorrencias"] = recurrenceSeries
 
-    return recurrencyDataframe
+    return recurrenceDataframe

@@ -22,7 +22,7 @@ def __groupByContestNumber(dataframe, highest):
         groupedDataframe = groupedDataframe.reset_index()
         groupedDataframe = groupedDataframe.rename(columns={column: 'Dezena'})
 
-        # We aṕpend each dataframe into one to gather the ocurrences in all the 6 positions
+        # We aṕpend each dataframe into one to gather the occurrences in all the 6 positions
         finalGroupedDataframe = finalGroupedDataframe.append(
             groupedDataframe, ignore_index=True)
 

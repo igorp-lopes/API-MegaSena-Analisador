@@ -6,7 +6,7 @@ from helpers.saveToJson import saveToJson
 from helpers.readFromCsv import readFromCsv
 from helpers.extractData import extractData
 from helpers.selectDateInterval import selectDateInterval
-from helpers.findRecurrency import findRecurrency
+from helpers.findRecurrence import findRecurrence
 from helpers.findDates import findNewest, findOldest
 
 app = FastAPI()
@@ -32,10 +32,10 @@ async def getResults(startDate: Optional[str] = None):
     return json
 
 
-@app.get("/recurrency")
-async def getRecurrency(startDate: Optional[str] = None):
+@app.get("/recurrence")
+async def getRecurrence(startDate: Optional[str] = None):
     '''
-    Route to get the total of ocurrences of each number in all the contests or
+    Route to get the total of occurrences of each number in all the contests or
     in a subset of contests starting from a given date up to the latest contest
     '''
     # If an starting date is given, select the subset of the dataframe
@@ -44,8 +44,8 @@ async def getRecurrency(startDate: Optional[str] = None):
     else:
         tempDf = baseDf
 
-    recurrencyDf = findRecurrency(tempDf)
-    json = saveToJson(recurrencyDf)
+    recurrenceDf = findRecurrence(tempDf)
+    json = saveToJson(recurrenceDf)
 
     return json
 
