@@ -16,6 +16,10 @@ baseDf = readFromCsv('resources/DadosMegasena.csv')
 
 @app.get("/recurrency")
 async def getRecurrency(startDate: Optional[str] = None):
+    '''
+    Route to get the total of ocurrences of each number in all the contests or
+    in a subset of contests starting from a given date up to the latest contest
+    '''
     # If an starting date is given, select the subset of the dataframe
     if startDate:
         tempDf = selectDateInterval(baseDf, startDate)
@@ -24,5 +28,25 @@ async def getRecurrency(startDate: Optional[str] = None):
 
     recurrencyDf = findRecurrency(tempDf)
     json = saveToJson(recurrencyDf)
+
+    return json
+
+
+@app.get("/earliestDate")
+async def getNewestDate(startDate: Optional[str] = None):
+    '''
+    Route to get the earliest date in which each number has been selected in
+    all the contests or in a subset of contests starting from a given date up to the
+    latest contest
+    '''
+
+   # If an starting date is given, select the subset of the dataframe
+    if startDate:
+        tempDf = selectDateInterval(baseDf, startDate)
+    else:
+        tempDf = baseDf
+
+    earliestDateDf = findNewest(tempDf)
+    json = saveToJson(earliestDateDf)
 
     return json
