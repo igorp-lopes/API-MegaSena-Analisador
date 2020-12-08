@@ -1,11 +1,11 @@
 from bs4 import BeautifulSoup
-from helpers import downloadData
+from . import downloadData
 import pandas as pd
 
 
 def extractData():
     """
-    Function used to get the html page where the date is stored and convert
+    Function used to get the html page where the data is stored and convert
     the wanted info into a Pandas dataframe
     """
 

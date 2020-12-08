@@ -1,35 +1,37 @@
 from fastapi import FastAPI
 from typing import Optional
 
-from helpers.saveToCsv import saveToCsv
-from helpers.saveToJson import saveToJson
-from helpers.readFromCsv import readFromCsv
-from helpers.extractData import extractData
-from helpers.selectDateInterval import selectDateInterval
-from helpers.findRecurrence import findRecurrence
-from helpers.findDates import findNewest, findOldest
+from .helpers import saveToCsv
+from .helpers import saveToJson
+from .helpers import readFromCsv
+from .helpers import extractData
+from .helpers import selectDateInterval
+from .helpers import findRecurrence
+from .helpers import findDates
+from .routers import results
 
 app = FastAPI()
 
-baseDf = readFromCsv('resources/DadosMegasena.csv')
+baseDf = readFromCsv.readFromCsv('app/resources/DadosMegasena.csv')
 
+app.include_router(results.router)
 
-@app.get("/results")
-async def getResults(startDate: Optional[str] = None):
-    '''
-    Route to get the unprocessed results of all the contests or in a
-    subset of contests starting from a given date up to the latest contest
-    '''
+# @app.get("/results")
+# async def getResults(startDate: Optional[str] = None):
+#     '''
+#     Route to get the unprocessed results of all the contests or in a
+#     subset of contests starting from a given date up to the latest contest
+#     '''
 
-    # If an starting date is given, select the subset of the dataframe
-    if startDate:
-        tempDf = selectDateInterval(baseDf, startDate)
-    else:
-        tempDf = baseDf
+#     # If an starting date is given, select the subset of the dataframe
+#     if startDate:
+#         tempDf = selectDateInterval(baseDf, startDate)
+#     else:
+#         tempDf = baseDf
 
-    json = saveToJson(tempDf)
+#     json = saveToJson(tempDf)
 
-    return json
+#     return json
 
 
 @app.get("/recurrence")
