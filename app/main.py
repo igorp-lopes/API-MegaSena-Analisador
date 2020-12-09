@@ -1,18 +1,9 @@
 from fastapi import FastAPI
 from typing import Optional
+from app.routers import results
 
-from .helpers import saveToCsv
-from .helpers import saveToJson
-from .helpers import readFromCsv
-from .helpers import extractData
-from .helpers import selectDateInterval
-from .helpers import findRecurrence
-from .helpers import findDates
-from .routers import results
 
 app = FastAPI()
-
-baseDf = readFromCsv.readFromCsv('app/resources/DadosMegasena.csv')
 
 app.include_router(results.router)
 
@@ -34,59 +25,59 @@ app.include_router(results.router)
 #     return json
 
 
-@app.get("/recurrence")
-async def getRecurrence(startDate: Optional[str] = None):
-    '''
-    Route to get the total of occurrences of each number in all the contests or
-    in a subset of contests starting from a given date up to the latest contest
-    '''
-    # If an starting date is given, select the subset of the dataframe
-    if startDate:
-        tempDf = selectDateInterval(baseDf, startDate)
-    else:
-        tempDf = baseDf
+# @app.get("/recurrence")
+# async def getRecurrence(startDate: Optional[str] = None):
+#     '''
+#     Route to get the total of occurrences of each number in all the contests or
+#     in a subset of contests starting from a given date up to the latest contest
+#     '''
+#     # If an starting date is given, select the subset of the dataframe
+#     if startDate:
+#         tempDf = selectDateInterval(baseDf, startDate)
+#     else:
+#         tempDf = baseDf
 
-    recurrenceDf = findRecurrence(tempDf)
-    json = saveToJson(recurrenceDf)
+#     recurrenceDf = findRecurrence(tempDf)
+#     json = saveToJson(recurrenceDf)
 
-    return json
-
-
-@app.get("/earliestDate")
-async def getNewestDate(startDate: Optional[str] = None):
-    '''
-    Route to get the earliest date in which each number has been selected in
-    all the contests or in a subset of contests starting from a given date up to the
-    latest contest
-    '''
-
-   # If an starting date is given, select the subset of the dataframe
-    if startDate:
-        tempDf = selectDateInterval(baseDf, startDate)
-    else:
-        tempDf = baseDf
-
-    earliestDateDf = findNewest(tempDf)
-    json = saveToJson(earliestDateDf)
-
-    return json
+#     return json
 
 
-@app.get("/oldestDate")
-async def getOldestDate(startDate: Optional[str] = None):
-    '''
-    Route to get the oldest date in which each number has been selected in
-    all the contests or in a subset of contests starting from a given date up to the
-    latest contest
-    '''
+# @app.get("/earliestDate")
+# async def getNewestDate(startDate: Optional[str] = None):
+#     '''
+#     Route to get the earliest date in which each number has been selected in
+#     all the contests or in a subset of contests starting from a given date up to the
+#     latest contest
+#     '''
 
-   # If an starting date is given, select the subset of the dataframe
-    if startDate:
-        tempDf = selectDateInterval(baseDf, startDate)
-    else:
-        tempDf = baseDf
+#    # If an starting date is given, select the subset of the dataframe
+#     if startDate:
+#         tempDf = selectDateInterval(baseDf, startDate)
+#     else:
+#         tempDf = baseDf
 
-    oldestDateDf = findOldest(tempDf)
-    json = saveToJson(oldestDateDf)
+#     earliestDateDf = findNewest(tempDf)
+#     json = saveToJson(earliestDateDf)
 
-    return json
+#     return json
+
+
+# @app.get("/oldestDate")
+# async def getOldestDate(startDate: Optional[str] = None):
+#     '''
+#     Route to get the oldest date in which each number has been selected in
+#     all the contests or in a subset of contests starting from a given date up to the
+#     latest contest
+#     '''
+
+#    # If an starting date is given, select the subset of the dataframe
+#     if startDate:
+#         tempDf = selectDateInterval(baseDf, startDate)
+#     else:
+#         tempDf = baseDf
+
+#     oldestDateDf = findOldest(tempDf)
+#     json = saveToJson(oldestDateDf)
+
+#     return json
