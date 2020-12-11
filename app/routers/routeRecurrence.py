@@ -1,5 +1,6 @@
 from fastapi import APIRouter
-from typing import Optional
+from typing import Optional, List
+from pydantic import BaseModel
 
 from app.helpers import dataframeAnalysis
 from app.helpers import auxiliary
@@ -7,7 +8,16 @@ from app.helpers import auxiliary
 router = APIRouter()
 
 
-@router.get("/recurrence")
+class Ocorrencia(BaseModel):
+    numero: int
+    ocorrencias: int
+
+
+class Ocorrencias(BaseModel):
+    numeros: List[Ocorrencia]
+
+
+@router.get("/recurrence", response_model=Ocorrencias)
 async def getRecurrence(startDate: Optional[str] = None):
     '''
     Route to get the total of occurrences of each number in all the contests or
@@ -23,6 +33,9 @@ async def getRecurrence(startDate: Optional[str] = None):
         tempDf = baseDf
 
     recurrenceDf = dataframeAnalysis.findRecurrence(tempDf)
-    json = auxiliary.saveToJson(recurrenceDf)
+    jsonData = auxiliary.saveToJson(recurrenceDf)
+
+    json = {}
+    json['numeros'] = jsonData
 
     return json
