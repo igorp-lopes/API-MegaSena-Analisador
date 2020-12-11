@@ -109,8 +109,8 @@ def findRecurrence(dataframe):
     numbersSeries = (recurrenceSeries.index).to_series()
 
     recurrenceDataframe = pd.DataFrame([])
-    recurrenceDataframe["Numeros"] = numbersSeries
-    recurrenceDataframe["Ocorrencias"] = recurrenceSeries
+    recurrenceDataframe["numero"] = numbersSeries
+    recurrenceDataframe["ocorrencias"] = recurrenceSeries
 
     return recurrenceDataframe
 
