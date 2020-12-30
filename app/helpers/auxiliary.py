@@ -7,7 +7,7 @@ def saveToJson(dataframe):
     JSON file
     """
 
-    json = dataframe.to_json(orient="records")
+    json = dataframe.to_dict(orient="records")
 
     return json
 
