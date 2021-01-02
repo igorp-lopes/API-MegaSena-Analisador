@@ -4,7 +4,7 @@ from typing import Optional
 from fastapi_utils.tasks import repeat_every
 
 from app.routers import routeResults
-from app.routers import routeRecurrence
+from app.routers import routeOccurrences
 from app.routers import routeDates
 from app.helpers import getData
 from app.helpers import auxiliary
@@ -38,5 +38,5 @@ def update_database():
 
 
 app.include_router(routeResults.router)
-app.include_router(routeRecurrence.router)
+app.include_router(routeOccurrences.router)
 app.include_router(routeDates.router)
