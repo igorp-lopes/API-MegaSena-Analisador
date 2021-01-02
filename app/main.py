@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional
 from fastapi_utils.tasks import repeat_every
 
@@ -9,6 +10,14 @@ from app.helpers import getData
 from app.helpers import auxiliary
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*'],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Routine to update the results database daily
 
