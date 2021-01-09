@@ -62,6 +62,10 @@ def extractData():
     dataframe = dataframe.dropna()
     dataframe = dataframe.reset_index(drop=True)
 
+    # We adjust the data format for better compatibility
+    dataframe['Data do Sorteio'] = dataframe['Data do Sorteio'].apply(
+        lambda x: x.replace('/', '-'))
+
     # We properly assign the value type of each column
     conditionMask = dataframe.columns != 'Data do Sorteio'
     dataframe.loc[:, conditionMask] = dataframe.loc[:,
