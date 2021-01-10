@@ -1,3 +1,4 @@
+from datetime import datetime
 import pandas as pd
 
 
@@ -83,3 +84,55 @@ def findOldest(dataframe):
     datesDataframe = __convertContestToDate(dataframe, contestOrderedSeries)
 
     return datesDataframe
+
+
+def findRecurrence(dataframe):
+    """
+    Function used to find how many times each number has been selected as
+    a winning number in a given dataframe with the results
+    """
+
+    # We select only the drawn numbers from the dataframe
+    dfNumbers = dataframe.iloc[:, 2:]
+
+    columns = list(dfNumbers)
+    groupedSeries = pd.Series([])
+    for i in columns:
+
+        if groupedSeries.empty:
+            groupedSeries = dfNumbers[i]
+        else:
+            groupedSeries = pd.concat(
+                [groupedSeries, dfNumbers[i]], ignore_index=True)
+
+    recurrenceSeries = (groupedSeries.value_counts()).sort_index()
+    numbersSeries = (recurrenceSeries.index).to_series()
+
+    recurrenceDataframe = pd.DataFrame([])
+    recurrenceDataframe["numero"] = numbersSeries
+    recurrenceDataframe["ocorrencias"] = recurrenceSeries
+
+    return recurrenceDataframe
+
+
+def selectDateInterval(dataframe, startDate):
+    """
+    Function used to slice a subset of the results dataframe using a given date 
+    to specify where the subset ends
+    """
+
+    # We convert the starting date to the date format
+    startDate = datetime.strptime(startDate, "%d-%m-%Y")
+    startDate = startDate.date()
+
+    # From the dataframe we extract the columns relative to the dates
+    datesSeries = dataframe["Data do Sorteio"]
+
+    # We convert our date column of the dataframe to datetime
+    datesSeries = pd.to_datetime(datesSeries, format="%d-%m-%Y")
+    datesSeries = datesSeries.dt.date
+
+    # We create a mask to select only the rows whose date are older than the start date
+    selectionMask = (datesSeries >= startDate)
+
+    return dataframe[selectionMask]
