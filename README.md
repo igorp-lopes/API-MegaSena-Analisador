@@ -4,7 +4,7 @@ API que obtem dados do sorteio de loteria da Mega-Sena através do site oficial 
 
 A API está hospedada no Heroku e disponível para uso [aqui](https://megasena-api.herokuapp.com/). Não deixe de conferir a [documentação Swagger](https://megasena-api.herokuapp.com/docs) para saber mais sobre como usar a API.
 
-Essa API faz parte de um projeto pessoal, sendo parte do back-end de uma aplicação web na qual é possível visualizar as análises feitas pela API através de uma interface gráfica. O projeto ainda se encontra em um estágio inicial e muitas melhorias e novas funcionalidades estão planejadas para o futuro.
+Essa API faz parte de um projeto pessoal, sendo parte do back-end de uma aplicação web, disponível neste [repositório do github](https://github.com/igorp-lopes/nextjs-MegaSena-Analisador), na qual é possível visualizar as análises feitas pela API através de uma interface gráfica. O projeto ainda se encontra em um estágio inicial e muitas melhorias e novas funcionalidades estão planejadas para o futuro.
 
 ## A ser feito
 
