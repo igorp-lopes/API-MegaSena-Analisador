@@ -1,4 +1,4 @@
-# API-MegaSena-Analisador - Versão 0.5 beta
+# API-MegaSena-Analisador - Versão 0.5.1 beta
 
 API feita em Python, usando o framework FastAPI, que obtem dados do sorteio de loteria da Mega-Sena através do site oficial da caixa e realiza análises com eles e/ou os fornece brutos para o usuário seguindo os padrões REST.
 
