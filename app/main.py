@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional
 from fastapi_utils.tasks import repeat_every
+import os
 
 from app.routers import routeResults
 from app.routers import routeOccurrences
@@ -13,7 +14,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=['*'],
+    allow_origins=[os.environ.get("ALLOWED_ORIGINS")],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
