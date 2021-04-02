@@ -12,11 +12,15 @@ from app.helpers import auxiliary
 
 app = FastAPI()
 
+app.include_router(routeResults.router)
+app.include_router(routeOccurrences.router)
+app.include_router(routeDates.router)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["https://nextjs-mega-sena-analisador.vercel.app"],
     allow_origin_regex=os.environ.get("ALLOWED_ORIGINS"),
-    allow_methods=["GET"],
+    allow_methods=[""],
     allow_headers=["*"],
     allow_credentials=True,
 )
@@ -37,8 +41,3 @@ def update_database():
 
     # We save the dataframe for later use in the API
     auxiliary.saveToCsv(df, 'app/resources')
-
-
-app.include_router(routeResults.router)
-app.include_router(routeOccurrences.router)
-app.include_router(routeDates.router)
