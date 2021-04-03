@@ -19,6 +19,7 @@ app.include_router(routeDates.router)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
+    allow_origin_regex=os.environ.get("ALLOWED_ORIGINS"),
     allow_methods=["*"],
     allow_headers=["*"],
     allow_credentials=True,
