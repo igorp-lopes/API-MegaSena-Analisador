@@ -20,7 +20,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["https://nextjs-mega-sena-analisador.vercel.app"],
     allow_origin_regex=os.environ.get("ALLOWED_ORIGINS"),
-    allow_methods=["*"],
+    allow_methods=[""],
     allow_headers=["*"],
     allow_credentials=True,
 )
